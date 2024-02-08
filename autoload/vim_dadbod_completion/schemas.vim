@@ -83,6 +83,18 @@ let s:schemas = {
       \   'column_parser': function('s:map_and_filter', ['\t']),
       \   'count_parser': function('s:count_parser', [1])
       \ },
+      \ 'mariadb': {
+      \   'column_query': s:query,
+      \   'count_column_query': s:count_query,
+      \   'table_column_query': {table -> substitute(s:table_column_query, '{db_tbl_name}', "'".table."'", '')},
+      \   'schemas_query': s:schema_query,
+      \   'schemas_parser': function('s:map_and_filter', ['\t']),
+      \   'requires_stdin': v:true,
+      \   'quote': ['`', '`'],
+      \   'should_quote': function('s:should_quote', [['reserved_word', 'space']]),
+      \   'column_parser': function('s:map_and_filter', ['\t']),
+      \   'count_parser': function('s:count_parser', [1])
+      \ },
       \ 'oracle': s:oracle,
       \ 'sqlite': {
       \   'args': ['-list'],
